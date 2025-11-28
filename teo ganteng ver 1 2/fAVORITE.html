@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        // Function to show and hide sections based on clicked button
+        function showSection(sectionId) {
+            // Hide all sections
+            var sections = document.querySelectorAll('.favorite-section');
+            sections.forEach(function (section) {
+                section.style.display = 'none';
+            });
+
+            // Show the selected section
+            var sectionToShow = document.getElementById(sectionId);
+            sectionToShow.style.display = 'block';
+            // update hash so linkable
+            try { window.location.hash = sectionId; } catch (e) {}
+            // move focus for accessibility (safe)
+            try {
+                sectionToShow.setAttribute('tabindex', '-1');
+                sectionToShow.focus({ preventScroll: true });
+            } catch (e) {}
+        }
+
+        // Check URL hash to show specific section when page loads
+        window.onload = function() {
+            var hash = window.location.hash;
+            if (hash) {
+                showSection(hash.substring(1)); // Remove '#' from hash and show corresponding section
+            } else {
+                // Show a default section, for example, 'food'
+                showSection('Sejarah');
+            }
+        };
+    </script>
+    <style>
+        /* Sejarah / Asal Usul styling */
+        .sejarah-hero{
+            background: linear-gradient(135deg, #fffaf0 0%, #fff1e6 100%);
+            padding: 1.75rem;
+            border-radius: .75rem;
+            box-shadow: 0 10px 30px rgba(27,59,90,0.06);
+        }
+        .sejarah-card{ background: rgba(255,255,255,0.9); padding:1rem; border-radius:.5rem; }
+        .sejarah-title{ font-size:1.9rem; font-weight:700; color:#1b3b5a; }
+        .sejarah-lead{ font-size:1.05rem; color:#333; margin-top:.4rem; }
+        .dropcap{ float:left; font-size:2.6rem; line-height:1; padding-right:.5rem; color:#d1495b; font-weight:700; }
+        .highlight{ background: linear-gradient(90deg, rgba(209,73,91,0.12), rgba(209,73,91,0.04)); padding:.15rem .5rem; border-radius:.35rem; }
+        .img-figure{ border-radius:.5rem; overflow:hidden; box-shadow: 0 8px 22px rgba(0,0,0,0.08); }
+    </style>
+    <style>
+        /* Agama section styling */
+        .agama-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem; align-items:center; }
+        .agama-image{ border-radius:.6rem; overflow:hidden; box-shadow:0 14px 40px rgba(27,59,90,0.04); }
+        .agama-image img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .agama-card{ background:linear-gradient(180deg,#fff,#f7fffb); padding:1.25rem; border-radius:.6rem; border:1px solid rgba(27,59,90,0.03); box-shadow:0 10px 30px rgba(27,59,90,0.04); }
+        .agama-title{ font-size:1.45rem; color:#12363a; font-weight:700; margin-bottom:.4rem; }
+        .agama-verse{ font-style:italic; background:linear-gradient(90deg, rgba(27,59,90,0.04), rgba(209,73,91,0.02)); padding:.8rem; border-radius:.45rem; color:#0b3740; margin-bottom:.8rem; }
+        .agama-lead{ color:#425a5b; margin-bottom:.8rem; }
+        .agama-actions{ display:flex; gap:.5rem; margin-top:.75rem; }
+        @media (max-width:767px){ .agama-grid{ grid-template-columns:1fr; } }
+    </style>
+    <style>
+        /* PPKN visual redesign (keeps original text unchanged) */
+        .ppkn-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:1.25rem; align-items:start; }
+        .ppkn-card{ background:linear-gradient(180deg,#ffffff,#fbfffb); padding:1.25rem; border-radius:.6rem; box-shadow:0 14px 40px rgba(27,59,90,0.04); border:1px solid rgba(27,59,90,0.03); }
+        .ppkn-header{ display:flex; align-items:center; gap:.75rem; margin-bottom:.5rem; }
+        .ppkn-badge{ width:46px; height:46px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#2aa16b,#2eb872); color:white; font-weight:700; box-shadow:0 8px 20px rgba(46,184,114,0.12); }
+        .ppkn-title{ font-size:1.15rem; font-weight:700; color:#143033; }
+        .ppkn-sub{ font-size:.95rem; color:#55636b; margin-bottom:.75rem; }
+        .ppkn-quote{ background:linear-gradient(90deg, rgba(209,73,91,0.04), rgba(27,59,90,0.03)); padding:.9rem; border-radius:.45rem; color:#16363b; }
+        @media (max-width:767px){ .ppkn-grid{ grid-template-columns:1fr; } }
+    </style>
+    <style>
+        /* Ensure images inside PPKN cards are responsive and consistent */
+        .ppkn-card img{ width:100%; height:auto; border-radius:.5rem; display:block; margin-bottom:.9rem; }
+    </style>
+    <style>
+        /* Visual indicator for search matches */
+        .favorite-section.search-match{ box-shadow: 0 8px 28px rgba(13,110,253,0.06); border-radius: .5rem; }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <a class="navbar-brand d-flex align-items-center" href="https://sites.google.com/view/belajarsmasttheresia/pembelajaran-virtual/moodle-sma">
+             <img src="./img/Sma santa theresia.jpeg" alt="Logo" width="125" height="55" class="me-2">
+             </a>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Kel 6</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="./INDEX.html">Home</a>
+        </li>
+        <li class="nav-item">
+          
+        </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Articel
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a onclick="showSection('Sejarah'); return false;" class="dropdown-item" href="#">Asal usul</a></li>
+                        <li><a onclick="showSection('PPKN'); return false;" class="dropdown-item" href="#">Sosial Budaya</a></li>
+                        <li><a onclick="showSection('Agama'); return false;" class="dropdown-item" href="#">Kehidupan beragama</a></li>
+                             <li><a onclick="showSection('PKWU'); return false;" class="dropdown-item" href="#">Vidio</a></li>
+                    </ul>
+                </li>
+        <li class="nav-item">
+        </li>
+      </ul>
+            <form id="favSearchForm" class="d-flex" role="search">
+                <input id="favSearchInput" class="form-control me-2" type="search" placeholder="Cari di artikel..." aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+    </div>
+  </div>
+</nav>
+
+    <!-- Header Section -->
+   
+
+    <!-- SECTION: Materi -->
+    <section id="Materi" class="favorite-section container my-5" style="display: none;">
+        <h2 class="text-center mb-4">Apa itu American fashion?</h2>
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="./img/1616107469470.jpeg" class="img-fluid rounded" alt="Fav Food">
+            </div>
+            <div class="col-md-6">
+                <p> Materi yang akan kami bahas adalah.</p>
+                <a href="https://en.wikipedia.org/wiki/Fashion_in_the_United_States" class="btn btn-info btn-sm mt-3" target="_blank" rel="noopener">Sumber</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: Sejarah -->
+    <section id="Sejarah" class="favorite-section container my-5" style="display: none;">
+        <div class="sejarah-hero">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6">
+                    <div class="img-figure">
+                        <img src="./img/kebaya.jpeg" class="img-fluid" alt="Sejarah American Fashion">
+                        <img src="./img/america.jpeg" class="img-fluid" alt="Sejarah American Fashion">
+                        <img src="./img/celine cewek.jpeg" class="img-fluid" alt="Sejarah American Fashion">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="sejarah-card">
+                        <h2 class="sejarah-title mb-2">Asal Usul American Fashion</h2>
+                        <p class="text-muted mb-2"><span class="highlight">Ringkasan:</span> American fashion masuk ke Indonesia melalui film, musik, dan globalisasi, lalu dimodifikasi menjadi tren lokal yang populer di kalangan remaja. Tetapi budaya berpakaian Amerika lebih banyak dampak buruknya daripada baiknya.</p>
+                        <p class="sejarah-lead"><span class="dropcap">P</span>Pada awalnya, Indonesia sangat banyak mempunyai peninggalan budaya dari nenek moyang kita terdahulu. Perkembangan fashion di Indonesia awalnya adalah penggunaan kain kebaya untuk perempuan dan kemeja tradisional untuk laki-laki.</p>
+
+                        <p class="mt-3">
+                            <a class="btn btn-outline-danger btn-sm" data-bs-toggle="collapse" href="#sejarahFull" role="button" aria-expanded="false" aria-controls="sejarahFull">Baca selengkapnya</a>
+                        </p>
+
+                        <div class="collapse" id="sejarahFull">
+                            <div class="mt-3">
+                                <p>Pada awalnya, indonesia sangat banyak mempunyai peninggalan budaya dari nenek moyang kita terdahulu, Perkembangan Fashion di Indonesia awalnya adalah penggunaan kain kebaya untuk perempuan dan laki-laki kemeja dengan kain. Tetapi pada saat dijajah Belanda, itulah awal sebelum Indonesia menggunakan pakaian seperti baju dan celana. Hal seperti itulah yang harus dibanggakan oleh penduduk Indonesia sendiri, tetapi sekarang-sekarang ini budaya Indonesia agak menurun dari sosialisasi penduduk; kini telah banyak yang melupakan apa itu budaya Indonesia. Semakin majunya arus globalisasi rasa cinta terhadap budaya semakin berkurang, dan ini sangat berdampak tidak baik bagi masyarakat asli Indonesia. Terlalu banyaknya kehidupan asing yang masuk ke Indonesia, masyarakat kini telah berkembang menjadi masyarakat modern—salah satunya budaya dari Amerika yaitu “American Fashion”.</p>
+
+                                <p>Bagi yang belum tahu, American Fashion adalah pakaian atau gaya yang digunakan berdasarkan apa yang digunakan oleh masyarakat di AS. American Fashion juga masuk ke budaya Indonesia karena adanya globalisasi dan modernisasi. Modernisasi dan revolusi industri, ditambah masuknya film dan musik Amerika, mempercepat penyebaran gaya ini. American fashion masuk ke Indonesia di awal abad ke-20 hingga abad ke-21, ditandai dengan streetwear seperti Supreme, Stussy, penggunaan denim, "sagging pants", jacket berlogo, dan style western.</p>
+
+                                <p>Peristiwa penting yang menunjukan masuknya American fashion adalah masuknya film dan musik Amerika ke Indonesia pada tahun 1950–1970-an. Aktor dan musisi seperti James Dean, Marilyn Monroe, Elvis Presley, The Beatles, dan lainnya turut mempengaruhi selera berpakaian remaja Indonesia — denim, sneakers, dan T-shirt menjadi populer. Sekarang masyarakat Indonesia banyak yang mengikuti dan memodifikasi gaya tersebut, misalnya denim dengan Japanese style, ripped denim, dan boots.</p>
+
+                                <p>Akibat perkembangan fashion ini banyak orang yang ikut-ikutan (FOMO), sehingga gaya berpakaian tertentu dapat menggeser norma dan etika berpakaian lokal. Meskipun ada dampak positif, seperti ekspresi diri dan kreativitas, ada juga dampak negatif seperti pudarnya norma kesopanan. Kesimpulannya, mengikuti fashion lain tidak menjadi masalah, tetapi kita perlu menanamkan dan menjaga norma kesopanan dalam berpakaian di tempat umum.</p>
+                                <a href="https://historicalmeaning.id/dari-pakaian-tradisional-ke-fashion-statement-transformasi-kebaya-dalam-lintasan-sejarah-indonesia/?utm_source=perplexity" class="btn btn-info btn-sm mt-3" target="_blank" rel="noopener">Sumber</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: PPKN  -->
+    <section id="PPKN" class="favorite-section container my-5" style="display: none;">
+        <h2 class="text-center mb-4">Sosial Budaya</h2>
+
+        <div class="ppkn-grid">
+            <div class="ppkn-card">
+                <img src="./img/sosio.jpeg" class="img-fluid rounded mb-3" alt="Sosial Budaya">
+                <div class="ppkn-header">
+                    <div class="ppkn-badge">A</div>
+                    <div>
+                        <div class="ppkn-title">Pasal & Kebudayaan</div>
+                        <div class="ppkn-sub">Pentingnya peran negara dalam memajukan kebudayaan nasional.</div>
+                    </div>
+                </div>
+
+                <div class="ppkn-quote">
+                    <p>Pasal 32 Ayat 1 UUD 1945
+                   "Negara memajukan kebudayaan nasional Indonesia di tengah peradaban dunia dengan menjamin kebebasan masyarakat dalam memelihara dan mengembangkan nilai-nilai budayanya.”
+                   Pasal ini mengajak kita untuk terlibat aktif dalam melestarikan dan mengembangkan budaya lokal di tengah era globalisasi, sambil menjamin kebebasan kita dalam berekspresi. Pasal ini memiliki hubungan dengan topik yang kita bahas (Western fashion). Di era globalisasi ini, pasti akan terdapat pengaruh dari budaya luar yang mempengaruhi masyarakat Indonesia. Salah satunya adalah masuknya tren fashion yang cepat berkembang terutama di kalangan remaja. Adanya gaya pakaian ini dapat dijadikan sebagai cara untuk ekspresi diri dan mengembangkan kreativitas para remaja. Tantangan yang dihadapi adalah masyarakat mersa bahwa pakaian di Indonesia itu sendiri atau tren yang ada kurang menarik sehingga masyarakat terinspirasi dan lebih ingin menggunakan pakaian yang digunakan oleh masyarakat global (US). Selain itu, etika berpakaian masyarakat global lebih terbuka dan menarik tetapi kurang sesuai dengan norma etika yang berada di Indonesia. Hal ini menyebabkan budaya berpakaian masyarakat Indonesia bisa memudar perlahan - lahan karena ketertarikan masyarakat Indonesia ke budaya luar yang terus meningkat. Oleh karena itu, kita harus tetap melestarikan dan mengembangkan budaya lokal kita agar tidak hilang / tertinggal. Meskipun kita merasa nyaman dengan budaya luar, kita harus selalu menghargai dan memajukan budaya kita sendiri.</p>
+                          <a href="https://kumparan.com/berita-hari-ini/maksud-pasal-32-ayat-1-uud-1945-dan-implementasinya-dalam-kehidupan-bernegara-1wRyQLZMOFh/full " class="btn btn-info btn-sm mt-2" target="_blank" rel="noopener">Sumber</a>
+                </div>
+            </div>
+
+            <div class="ppkn-card">
+                <img src="./img/kebaya.jpeg" class="img-fluid rounded mb-3" alt="Kebaya">
+                <div class="ppkn-header">
+                    <div class="ppkn-badge">B</div>
+                    <div>
+                        <div class="ppkn-title">Identitas & Hak</div>
+                        <div class="ppkn-sub">Perlindungan identitas budaya dan hak masyarakat tradisional.</div>
+                    </div>
+                </div>
+
+                <div class="ppkn-quote">
+                  <p>Pasal 28I ayat 3 UUD 1945
+                 "Identitas budaya dan hak masyarakat tradisional dihormati selaras dengan perkembangan zaman dan peradaban. "
+                 Pasal ini berarti bahwa setiap orang memiliki hak dalam kebudayaan mereka dan wajib menghargai hak dan budaya sesama. Pasal ini mengingatkan kita sebagai masyarakat bahwa masuknya budaya barat tidak boleh menghilangkan identitas bangsa kita, terutama di tengah era globalisasi ini. Harapan dari masyarakat yang berkaitan dengan pasal ini adalah bagaimana kita harus menjalankan integrasi budaya secara adil & rata, sehingga tidak muncul tantangan - tantangan yang tidak diinginkan. Justru adanya akulturasi antara budaya lokal dengan budaya barat baik karena dapat mendorong dan menginspirasi banyak orang dalam berbagai bidang. Adanya pasal ini melindungi identitas budaya nasional dan hak setiap orang dalam memilih budaya mereka serta dalam menyikapi pengaruh budaya asing.</p>
+                  <a href="https://www.detik.com/edu/detikpedia/d-5721614/makna-pasal-28-dalam-uud-1945-untuk-hak-asasi-manusia" class="btn btn-info btn-sm mt-2" target="_blank" rel="noopener">Sumber</a>
+                </div>
+            </div>
+        </div>
+
+            </div>
+
+            
+
+                <hr />
+
+                <div id="ppknNewsList" class="row g-3">
+                    <!-- News cards will be rendered here -->
+                </div>
+            </div>
+
+    </section>
+
+    <!-- SECTION: Agama -->
+    <section id="Agama" class="favorite-section container my-5" style="display: none;">
+        <h2 class="text-center mb-4">Imitatio Christi</h2>
+
+        <div class="agama-grid">
+            <div class="agama-image">
+                <img src="./img/agama33.jpeg" alt="Ilustrasi Agama">
+            </div>
+
+            <div class="agama-card">
+                <div class="agama-title">Refleksi & Etika Berpakaian</div>
+                <div class="agama-verse">Kitab 1 Timotius 2:9 membahas bagaimana perempuan dituntut untuk berpakaian yang benar dan sopan, dan mampu memilih pakaian yang sopan dihadapan Allah sesuai Kitab Suci.</div>
+
+                <p class="agama-lead">Kitab 1 Timotius 2:9 membahas bagaimana perempuan dituntut untuk berpakaian yang benar dan sopan, dan mampu memilih pakaian yang sopan dihadapan Allah sesuai Kitab Suci. Seperti halnya, perempuan Yahudi yang menggunakan penutup kepala untuk dan penggunaan jubah yang menutupi tubuh mereka. Hal ini perlu dicontoh, bukan tentang mereka yang menggunakan jubah dan penutup kepala, tetapi tentang cara berpakaian yang sopan dan benar yang tidak melanggar Etika KeKristenan.</p>
+
+                <div class="collapse" id="agamaFull">
+                    <p>Menurut teks Taimud Yahudi (Hukum Yahudi) menjelaskan mengenai aturan yang ketat tentang pakaian wanita. Dimana wanita yang keluar ke tempat umum dan berbicara dengan laki-laki yang tidak diketahui tanpa kerudung, maka suaminya boleh menceraikannya tanpa membayar mahar (Mahar adalah pemberian dari suami ke istri seperti emas dll) 
+                   Kerudung menyimbolkan kondisi yang membedakan status dan kemewahan yang dimiliki oleh seorang wanita yang memakai kerudung. Martabat dan keagungan seorang wanita Yahudi dinilai dari kerudung di kepalanya.</p>
+                   <p> Sebenarnya prinsip yang paling mendasar dalam cara kita berpakaian adalah sikap penghargaan terhadap tubuh kita, yang diciptakan Tuhan amat baik adanya (lih. Kej 1:31). Rasul Paulus mengingatkan bahwa ‘tubuh itu bukan untuk percabulan, melainkan untuk Tuhan’ (1 Kor 6:13) oleh karena itu, kita selayaknya melihat tubuh ini bukan sebagai objek kesenangan mata, tetapi sebagai ciptaan Tuhan yang mulia, sebab tubuh kita adalah bait Allah.
+                       Dengan demikian, tubuh kita merupakan cerminan jiwa: apa yang kita hayati di dalam jiwa kita, terpancar ke luar dengan cara bagaimana kita bersikap dengan tubuh kita.
+                       Tubuh kita adalah bait Roh Kudus yang diam di dalam diri kita sendiri, Roh Kudus yang kamu peroleh dari Allah, dan bahwa kamu bukan milik kamu sendiri? Sebab kamu telah dibeli dan harganya telah lunas dibayar: Karena itu muliakanlah Allah dengan tubuhmu!” (1 Kor 6:19- 20).
+                       Salah satu contoh kasus di teks ini adalah : Cara wanita wanita mengeksploitasi tubuh di sosial media, demi konten atau uang, teks ini memberitahu bahwa tubuh kita adalah bait Roh Kudus yang diam di dalam tubuh kita masing-masing</p>
+                </div>
+
+                <div class="agama-actions">
+                    <a class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" href="#agamaFull" role="button" aria-expanded="false" aria-controls="agamaFull">Baca Selengkapnya</a>
+                    <button class="btn btn-sm btn-success" onclick="showSection('Sejarah')">Lihat Asal Usul</button>
+                    <a href="https://www.jawaban.com/read/article/id/2021/08/01/518/210730170235/_faktaalkitabasal_usul_kerudung_dalam_alkitab_dan_tradisi_yahudi/all" class="btn btn-info btn-sm" target="_blank" rel="noopener">Sumber</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--SECTION: PKWU -->
+    <section id="PKWU" class="favorite-section container my-5" style="display: none;">
+        <h2 class="text-center mb-4"> Video Pembuatan</h2>
+        <div class="card" style="width: 18rem;">
+       <video class="d-block w-100" controls style="background-color: #000;">
+        <source src="./img/Video PKWU Kelompok 5 .mov" type="video/mp4">
+        <source src="">
+       </video>
+</div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-success text-white text-center mt-5 p-3">
+        <p>&copy; Menjadi pemimpin yang peduli, kreatif, dan berwawasan global.</p>
+    </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+        /* PPKN news card styles */
+        .ppkn-news-card { border-radius: .5rem; border: 1px solid rgba(0,0,0,0.06); padding: .75rem; background: #fff; }
+        .ppkn-news-title { font-weight:700; color:#12363a; }
+        .ppkn-news-meta { font-size:.85rem; color:#55636b; }
+</style>
+<script>
+    (function(){
+        var STORAGE_KEY = 'ppknNews_v1';
+        var form = document.getElementById('ppknNewsForm');
+        var list = document.getElementById('ppknNewsList');
+        var clearBtn = document.getElementById('ppknClearBtn');
+
+        function loadNews(){
+            try{ return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }catch(e){ return []; }
+        }
+        function saveNews(items){ localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); }
+
+        function render(){
+            var items = loadNews();
+            list.innerHTML = '';
+            if(!items.length){
+                list.innerHTML = '<div class="col-12 text-muted">Belum ada berita. Tambahkan berita baru menggunakan form di atas.</div>';
+                return;
+            }
+
+            items.slice().reverse().forEach(function(item){
+                var col = document.createElement('div'); col.className = 'col-12';
+                var card = document.createElement('div'); card.className = 'ppkn-news-card';
+                var title = document.createElement('div'); title.className = 'ppkn-news-title';
+                if(item.url){
+                    var a = document.createElement('a'); a.href = item.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = item.title || '(tanpa judul)';
+                    title.appendChild(a);
+                } else { title.textContent = item.title || '(tanpa judul)'; }
+
+                var meta = document.createElement('div'); meta.className = 'ppkn-news-meta mb-2';
+                var date = new Date(item.id); meta.textContent = date.toLocaleString();
+
+                var summary = document.createElement('div'); summary.textContent = item.summary || '';
+
+                var actions = document.createElement('div'); actions.className = 'mt-2 text-end';
+                var del = document.createElement('button'); del.className = 'btn btn-sm btn-outline-danger'; del.textContent = 'Hapus';
+                del.addEventListener('click', function(){ remove(item.id); });
+                actions.appendChild(del);
+
+                card.appendChild(title);
+                card.appendChild(meta);
+                card.appendChild(summary);
+                card.appendChild(actions);
+                col.appendChild(card);
+                list.appendChild(col);
+            });
+        }
+
+        function add(item){
+            var items = loadNews(); items.push(item); saveNews(items); render();
+        }
+
+        function remove(id){
+            var items = loadNews().filter(function(i){ return i.id !== id; });
+            saveNews(items); render();
+        }
+
+        if(form){
+            form.addEventListener('submit', function(e){
+                e.preventDefault();
+                var title = document.getElementById('newsTitle').value.trim();
+                var url = document.getElementById('newsURL').value.trim();
+                var summary = document.getElementById('newsSummary').value.trim();
+                if(!title){ alert('Masukkan judul berita.'); return; }
+                add({ id: Date.now(), title: title, url: url || '', summary: summary || '' });
+                form.reset();
+            });
+        }
+
+        if(clearBtn){
+            clearBtn.addEventListener('click', function(){ if(confirm('Bersihkan semua field?')) form.reset(); });
+        }
+
+        // initial render
+        render();
+    })();
+</script>
+<script>
+    (function(){
+        var form = document.getElementById('favSearchForm');
+        var input = document.getElementById('favSearchInput');
+        if(!form || !input) return;
+
+        function performSearch(rawQuery){
+            var q = (rawQuery || '').trim().toLowerCase();
+            var sections = document.querySelectorAll('.favorite-section');
+            if(!q){
+                sections.forEach(function(s){ s.style.display = 'none'; s.classList.remove('search-match'); });
+                showSection('Sejarah');
+                return;
+            }
+
+            var any = false;
+            sections.forEach(function(s){
+                var text = (s.innerText || '').toLowerCase();
+                if(text.indexOf(q) !== -1){
+                    s.style.display = 'block';
+                    s.classList.add('search-match');
+                    any = true;
+                } else {
+                    s.style.display = 'none';
+                    s.classList.remove('search-match');
+                }
+            });
+
+            if(!any){
+                alert('Tidak ada hasil untuk "' + rawQuery + '"');
+            } else {
+                // focus and smooth-scroll to first match
+                var first = document.querySelector('.favorite-section.search-match');
+                if(first){
+                    try{ first.setAttribute('tabindex','-1'); first.focus({preventScroll:true}); }catch(e){}
+                    var rect = first.getBoundingClientRect();
+                    window.scrollTo({ top: rect.top + window.scrollY - 70, behavior: 'smooth' });
+                }
+            }
+        }
+
+        // submit (Enter / button)
+        form.addEventListener('submit', function(e){ e.preventDefault(); performSearch(input.value); });
+
+        // live search with debounce
+        var debounce;
+        input.addEventListener('input', function(){
+            clearTimeout(debounce);
+            debounce = setTimeout(function(){ performSearch(input.value); }, 160);
+        });
+
+    })();
+</script>
+</html>
+</html>
